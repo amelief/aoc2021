@@ -2,7 +2,7 @@
 FILE = File.readlines('input/1.txt').map(&:to_i)
 
 def number_increased?(number, counter, source = FILE)
-  false if counter < 1
+  return false if counter < 1
   number > source[counter - 1].to_i
 end
 
