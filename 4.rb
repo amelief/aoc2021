@@ -9,7 +9,8 @@ $called_numbers = []
 
 def remaining_numbers(array_to_use, matching_line)
   remaining = []
-  array_to_use.drop(matching_line + 1).each do |s|
+  array_to_use[matching_line] = nil
+  array_to_use.compact.each do |s|
     remaining << s - $called_numbers
   end
   remaining.flatten.sum
@@ -23,7 +24,6 @@ def check_lines(lines)
     remaining = line - $called_numbers
 
     if remaining.empty?
-      puts "Line #{i} matches: #{line}. Last called number: #{$called_numbers.last}"
       return i
     else
       next
@@ -57,7 +57,6 @@ def check_board(raw_board)
     elsif !x_match.nil? && y_match.nil?
       matched_line = x_match
     elsif !y_match.nil? && x_match.nil?
-      puts 'Y MATCH'
       matched_line = y_match
     end
 
@@ -80,20 +79,33 @@ def part_1
       next if match_found === true
       remaining_sum = check_board(board)
 
-      if !remaining_sum.nil?
-        puts "board #{i} matches"
+      unless remaining_sum.nil?
         match_found = true
         return remaining_sum * $called_numbers.last
       else
-        puts "no match for board #{i}"
+      end
+    end
+  end
+end
+
+def part_2
+  winning_scores = []
+  last_win = nil
+
+  NUMBERS.each do |number|
+    $called_numbers << number
+  
+    RAW_BOARDS.each_with_index do |board, i|
+      next unless winning_scores[i].nil?
+      remaining_sum = check_board(board)
+
+      unless remaining_sum.nil?
+        last_win = winning_scores[i] = remaining_sum * $called_numbers.last
       end
     end
   end
 
-
-end
-
-def part_2
+  last_win
 end
 
 
