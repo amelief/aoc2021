@@ -20,8 +20,6 @@ def simple_count_fish(count)
 end
 
 def count_fish(count)
-  current_fish_list = FILE.clone
-
   fish_list = []
   10.times { |n| fish_list[n] = 0 }
 
