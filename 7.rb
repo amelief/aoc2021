@@ -2,10 +2,6 @@
 FILE = File.read('input/7.txt').split(',').map(&:to_i)
 HIGHEST = FILE.max
 
-def calculate_fuel(number)
-end
-
-
 def part_1
   possible_points = []
 
@@ -38,7 +34,6 @@ def part_2
 
   possible_points.min
 end
-
 
 1.upto(2) do |part|
   puts "Part #{part}: #{send("part_#{part}")}"
